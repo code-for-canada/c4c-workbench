@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "c4c-workbench",
+  "version": "0.1.0",
+  "description": "Code for Canada's workbench of skills and tools for AI agents.",
+  "author": {
+    "name": "Code for Canada"
+  },
+  "license": "MIT",
+  "keywords":["code-for-canada", "civic-tech", "government"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "C4C Workbench",
+        "shortDescription": "Code for Canada's skills and tools for AI agents.",
+        "developerName": "Code for Canada",
+        "category": "Productivity"
+      }
+    }
+  }
+}

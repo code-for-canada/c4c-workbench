@@ -1,0 +1,11 @@
+{
+  "name": "c4c-workbench",
+  "displayName": "C4C Workbench",
+  "version": "0.1.0",
+  "description": "Code for Canada's workbench of skills and tools for AI agents.",
+  "author": {
+    "name": "Code for Canada"
+  },
+  "license": "MIT",
+  "keywords":["code-for-canada", "civic-tech", "government"]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "c4c-workbench",
+  "owner": {
+    "name": "Code for Canada"
+  },
+  "metadata": {
+    "description": "Code for Canada's workbench plugin.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "c4c-workbench",
+      "description": "Code for Canada's workbench of skills and tools for AI agents.",
+      "version": "0.1.0",
+      "source": "./"
+    }
+  ]
+}
