@@ -32,7 +32,7 @@ When the user seems unsure about their progress or results, or before moving pas
 
 ## The discovery report
 
-`discovery-report.html` is the single readable summary of discovery. Every activity keeps its own outputs and also updates the report:
+`discovery-report.html` is the single readable summary of discovery. All HTML should be elegant, with no decorative elements, brief concise text, and strong typography hierarchy. Every activity keeps its own outputs and also updates the report:
 
 - Create it if it doesn't exist.
 - Update the sections the activity informs, in this order: outcome and success measures; challenge statement and scope; people; how things work today and the technology involved; constraints and key takeaways from the environmental scan; current assumptions; the concept short list; the chosen direction, its evidence, and the assumptions Alpha should test first.
