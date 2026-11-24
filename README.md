@@ -6,7 +6,7 @@
 
 <p align="center">
   Code for Canada's skills for running technology projects with AI agents.<br>
-  Works in Claude, ChatGPT, Codex, GitHub Copilot and Cursor.
+  Works in Claude, ChatGPT, Codex and GitHub Copilot.
 </p>
 
 <p align="center">
@@ -25,35 +25,69 @@ Start with **`workbench-guide`**. It tells you where you are, what to do next, a
 
 ## Install
 
-### From GitHub
+Most tools install straight from this repo. Where a tool needs a zip instead, download it from a release or build it with `node scripts/package.mjs`. That creates `dist/c4c-workbench-<version>.zip`, plus `dist/c4c-workbench-m365-<version>.zip` for Microsoft 365.
 
-| Tool | How |
+### Claude
+
+| Where | How |
 |---|---|
-| **Claude** (Desktop, Cowork, claude.ai) | **Customize → Plugins**, add `code-for-canada/c4c-workbench` as a marketplace, then install **C4C Workbench**. Team and Enterprise owners can make it available to everyone. |
-| **Codex / ChatGPT desktop** | Run `codex plugin marketplace add code-for-canada/c4c-workbench`, then install **C4C Workbench** from the plugin list. |
-| **VS Code / Copilot** | Add `code-for-canada/c4c-workbench` to the `chat.plugins.marketplaces` setting, then install it from the Extensions view. In Copilot CLI, add the repo as a plugin marketplace and install `c4c-workbench`. |
+| **Claude app** (desktop, Cowork, claude.ai) | **Customize → Plugins → Add → Add marketplace**, enter `code-for-canada/c4c-workbench`, then **Install** C4C Workbench. Or upload the zip with **Add → Upload plugin**. Plugins are saved to your account, so they also show up in Claude Code. |
+| **Claude Code in VS Code** | Type `/plugins`, add `code-for-canada/c4c-workbench` on the **Marketplaces** tab, then **Install** it from the **Plugins** tab. |
+| **Whole organization** (Team, Enterprise) | Owners go to **Organization settings → Plugins & skills → Add → Upload a plugin** and upload the zip, then choose who gets it. |
 
-### From a zip
+### ChatGPT and Codex
 
-Build the zip with `node scripts/package.mjs`, or download it from a release. It creates `dist/c4c-workbench-<version>.zip`.
-
-| Tool | How |
+| Where | How |
 |---|---|
-| **Claude** (paid plans) | **Customize → Plugins → Add → Upload plugin**. In Cowork, open the **Cowork** tab first. The plugin is saved to your account, so it also shows up in chat and Claude Code. |
-| **ChatGPT** (workspace admins) | In the [Admin console](https://admin.openai.com), open **Plugins → Add → Upload plugin**. Enterprise admins need to turn on the **Upload plugins** permission first. |
-| **Codex, VS Code, Copilot CLI** | Unzip it, then install from the folder: `codex plugin marketplace add <path>/c4c-workbench`, or the Agent Customizations editor in VS Code. |
+| **ChatGPT** (web and desktop) | Open **Plugins** and add `https://github.com/code-for-canada/c4c-workbench`. Workspace admins can add it for everyone from the [Admin console](https://admin.openai.com) → **Plugins → Add**, by importing this repo or uploading the zip. |
+| **Codex CLI** | `codex plugin marketplace add code-for-canada/c4c-workbench`, then `codex plugin add c4c-workbench@c4c-workbench`. Start a new session. |
+
+### GitHub Copilot
+
+Copilot installs plugins as `plugin@marketplace`, so add this repo as a marketplace first, then install `c4c-workbench@c4c-workbench`.
+
+| Where | How |
+|---|---|
+| **GitHub Copilot app** | Open **Customize**, select the marketplace settings button next to the marketplace dropdown, and add `code-for-canada/c4c-workbench`. Then find C4C Workbench under **Browse** and select **Install**, or enter `c4c-workbench@c4c-workbench` in **Install plugin**. |
+| **VS Code** | Run **Chat: Manage Plugin Marketplaces** from the Command Palette, select **Add Marketplace...** and enter `code-for-canada/c4c-workbench`. Then open **Customize**, search for C4C Workbench and select **Install**. |
+| **Copilot CLI** | `copilot plugin marketplace add code-for-canada/c4c-workbench`, then `copilot plugin install c4c-workbench@c4c-workbench`. |
+| **Copilot cloud agent** (github.com) | Add the marketplace and plugin to the repo's `.github/copilot/settings.json`, using the same keys as the enterprise example below. |
+| **Visual Studio** | Skills only. Copy the folders in [`skills/`](skills/) into `~/.copilot/skills/`. |
+
+**Whole enterprise.** Admins add it to `copilot/managed-settings.json` in the enterprise's `.github-private` repository. `extraKnownMarketplaces` makes it available to everyone, and `enabledPlugins` installs it for everyone (`true`) or blocks it (`false`). Check the file under **AI controls → Agents → Copilot settings validation**.
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "c4c-workbench": {
+      "source": { "source": "github", "repo": "code-for-canada/c4c-workbench" }
+    }
+  },
+  "enabledPlugins": {
+    "c4c-workbench@c4c-workbench": true
+  }
+}
+```
+
+### Microsoft 365 Copilot
+
+| Where | How |
+|---|---|
+| **Copilot Cowork** | **Plugins → Add → Upload**, then upload `c4c-workbench-<version>.zip`. Cowork converts it automatically. Use **Share** to give it to colleagues. Needs a Microsoft 365 Copilot licence. |
+| **Copilot Chat** | Skills only, one at a time. Zip a single folder from [`skills/`](skills/), then go to **Agents → More agents → Add → Upload skill**. Needs Microsoft Copilot Premium. |
+| **Whole organization** | Admins go to the Microsoft 365 admin center → **Agents → Tools → Registry → Upload**, upload `c4c-workbench-m365-<version>.zip`, choose who gets it under **Scope users**, then **Install**. |
 
 ## Contributing
 
 The plugin follows the [Agent Plugins 1.0](https://agent-plugins.org/specification) standard, plus a Claude manifest, since Claude doesn't read that format yet.
 
-| Component | Claude | Codex / ChatGPT | Copilot / VS Code | Cursor |
-|---|---|---|---|---|
-| Skills (`skills/`) | ✅ | ✅ | ✅ | ✅ |
-| MCP servers | `.mcp.json` | `mcp.json` | `mcp.json` | `mcp.json` |
-| Subagents | `agents/` | — | `com.github.copilot/agents/` | — |
+| Component | Claude | Codex / ChatGPT | Copilot / VS Code |
+|---|---|---|---|
+| Skills (`skills/`) | ✅ | ✅ | ✅ |
+| MCP servers | `.mcp.json` | `mcp.json` | `mcp.json` |
+| Subagents | `agents/` | — | `com.github.copilot/agents/` |
 
-Skills are the portable part, so put as much as you can in them.
+
 
 <details>
 <summary><strong>Adding a skill</strong></summary>
@@ -95,7 +129,7 @@ Add `agents/<name>.md` for Claude and `com.github.copilot/agents/<name>.agent.md
 <details>
 <summary><strong>Releasing</strong></summary>
 
-Bump `version` in `plugin.json`, `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, then check that everything agrees:
+Bump `version` in `plugin.json`, `.claude-plugin/plugin.json` and each `marketplace.json` (`.claude-plugin/`, `.github/plugin/`), then check that everything agrees:
 
 ```bash
 node scripts/validate.mjs

@@ -12,7 +12,9 @@
       "name": "c4c-workbench",
       "description": "Code for Canada's workbench of skills and tools for AI agents.",
       "version": "0.1.0",
-      "source": "./"
+      "source": "./",
+      "displayName": "C4C Workbench",
+      "category": "productivity"
     }
   ]
 }

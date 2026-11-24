@@ -4,17 +4,33 @@
   "version": "0.1.0",
   "description": "Code for Canada's workbench of skills and tools for AI agents.",
   "author": {
-    "name": "Code for Canada"
+    "name": "Code for Canada",
+    "url": "https://codefor.ca"
   },
+  "homepage": "https://github.com/code-for-canada/c4c-workbench",
+  "repository": "https://github.com/code-for-canada/c4c-workbench",
   "license": "MIT",
-  "keywords":["code-for-canada", "civic-tech", "government"],
+  "keywords": ["code-for-canada", "civic-tech", "government", "discovery", "service-design"],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "C4C Workbench",
-        "shortDescription": "Code for Canada's skills and tools for AI agents.",
+        "shortDescription": "Run technology projects the Code for Canada way.",
+        "longDescription": "Code for Canada's skills for running public-interest technology projects with an AI agent. Define success, research the current state, brainstorm concepts and test them with real people, while the agent keeps a single discovery report up to date as you learn.",
         "developerName": "Code for Canada",
-        "category": "Productivity"
+        "category": "Productivity",
+        "capabilities": ["Interactive", "Write"],
+        "websiteURL": "https://github.com/code-for-canada/c4c-workbench",
+        "privacyPolicyURL": "https://codefor.ca/code-for-canada-privacy-policy/",
+        "termsOfServiceURL": "https://github.com/code-for-canada/c4c-workbench/blob/main/LICENSE",
+        "defaultPrompt": [
+          "Where am I in discovery, and what should I do next?",
+          "Help me define what success looks like for my project.",
+          "Brainstorm concepts for our challenge statement."
+        ],
+        "brandColor": "#6B3FB0",
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png"
       }
     }
   }

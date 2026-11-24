@@ -4,8 +4,16 @@
   "version": "0.1.0",
   "description": "Code for Canada's workbench of skills and tools for AI agents.",
   "author": {
-    "name": "Code for Canada"
+    "name": "Code for Canada",
+    "url": "https://codefor.ca"
   },
+  "icon": "./assets/logo.png",
+  "homepage": "https://github.com/code-for-canada/c4c-workbench",
+  "repository": "https://github.com/code-for-canada/c4c-workbench",
+  "documentationUrl": "https://github.com/code-for-canada/c4c-workbench#readme",
+  "supportUrl": "https://github.com/code-for-canada/c4c-workbench/issues",
+  "privacyPolicyUrl": "https://codefor.ca/code-for-canada-privacy-policy/",
+  "termsOfServiceUrl": "https://github.com/code-for-canada/c4c-workbench/blob/main/LICENSE",
   "license": "MIT",
-  "keywords":["code-for-canada", "civic-tech", "government"]
+  "keywords": ["code-for-canada", "civic-tech", "government", "discovery", "service-design"]
 }

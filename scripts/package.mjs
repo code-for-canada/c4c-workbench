@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-// Builds dist/c4c-workbench-<version>.zip for manual installs.
-// The zip holds one top-level c4c-workbench/ folder, which both Claude and
-// ChatGPT accept. ChatGPT's admin upload still asks for .codex-plugin/plugin.json,
-// so it is generated here from plugin.json rather than kept in the repo.
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync } from "node:fs";
+// Builds two zips in dist/ for manual installs:
+// - c4c-workbench-<version>.zip: one top-level c4c-workbench/ folder, which both
+//   Claude and ChatGPT accept. ChatGPT's admin upload still asks for
+//   .codex-plugin/plugin.json, so it is generated here from plugin.json.
+// - c4c-workbench-m365-<version>.zip: a Microsoft 365 app package (manifest.json,
+//   icons and skills/) for the Microsoft 365 admin center's plugin registry.
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname, basename, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -52,3 +54,42 @@ writeFileSync(join(pluginDir, ".codex-plugin/plugin.json"), JSON.stringify(codex
 execFileSync("zip", ["-rqX", zipPath, name], { cwd: stage, stdio: "inherit" });
 rmSync(stage, { recursive: true, force: true });
 console.log(`✓ Built ${relative(root, zipPath)}`);
+
+// Microsoft 365 app package. Keep the id fixed so uploads update the same plugin.
+const M365_ID = "081d8810-cf84-43df-9489-bbcbcd7598ce";
+const m365Zip = join(dist, `${name}-m365-${version}.zip`);
+const m365Stage = join(dist, "m365");
+const skills = readdirSync(join(root, "skills")).filter((d) =>
+  existsSync(join(root, "skills", d, "SKILL.md")),
+);
+const ui = openai.interface ?? {};
+const m365 = {
+  $schema: "https://developer.microsoft.com/en-us/json-schemas/teams/v1.28/MicrosoftTeams.schema.json",
+  manifestVersion: "1.28",
+  version,
+  id: M365_ID,
+  developer: {
+    name: ui.developerName ?? manifest.author.name,
+    websiteUrl: manifest.homepage,
+    privacyUrl: ui.privacyPolicyURL,
+    termsOfUseUrl: ui.termsOfServiceURL,
+  },
+  name: { short: ui.displayName ?? name },
+  description: { short: ui.shortDescription ?? manifest.description, full: ui.longDescription ?? manifest.description },
+  icons: { color: "color.png", outline: "outline.png" },
+  accentColor: ui.brandColor ?? "#FFFFFF",
+  agentSkills: skills.map((d) => ({ folder: `./skills/${d}` })),
+};
+rmSync(m365Stage, { recursive: true, force: true });
+rmSync(m365Zip, { force: true });
+mkdirSync(m365Stage, { recursive: true });
+cpSync(join(root, "skills"), join(m365Stage, "skills"), {
+  recursive: true,
+  filter: (src) => !EXCLUDE.has(basename(src)),
+});
+cpSync(join(root, "assets/color.png"), join(m365Stage, "color.png"));
+cpSync(join(root, "assets/outline.png"), join(m365Stage, "outline.png"));
+writeFileSync(join(m365Stage, "manifest.json"), JSON.stringify(m365, null, 2) + "\n");
+execFileSync("zip", ["-rqX", m365Zip, "."], { cwd: m365Stage, stdio: "inherit" });
+rmSync(m365Stage, { recursive: true, force: true });
+console.log(`✓ Built ${relative(root, m365Zip)}`);

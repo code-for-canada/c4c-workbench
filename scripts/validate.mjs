@@ -28,10 +28,11 @@ const PORTABLE_FIELDS = new Set([
 ]);
 
 // --- Manifests ---------------------------------------------------------------
-const portable = readJson("plugin.json"); // Agent Plugins 1.0 (Codex, ChatGPT, Copilot, VS Code, Cursor)
+const portable = readJson("plugin.json"); // Agent Plugins 1.0 (Codex, ChatGPT, Copilot, VS Code)
 const claude = readJson(".claude-plugin/plugin.json"); // Claude Code, Claude Desktop, Cowork
-const claudeMarket = readJson(".claude-plugin/marketplace.json"); // Claude Code, Copilot CLI
-const openaiMarket = readJson(".agents/plugins/marketplace.json"); // Codex, ChatGPT desktop
+const claudeMarket = readJson(".claude-plugin/marketplace.json"); // Claude
+const openaiMarket = readJson(".agents/plugins/marketplace.json"); // Codex, ChatGPT
+const copilotMarket = readJson(".github/plugin/marketplace.json"); // GitHub Copilot
 
 if (portable) {
   if (portable.$schema !== PLUGIN_SCHEMA) fail(`plugin.json: $schema must be ${PLUGIN_SCHEMA}`);
@@ -54,6 +55,7 @@ const name = portable?.name;
 for (const [file, market] of [
   [".claude-plugin/marketplace.json", claudeMarket],
   [".agents/plugins/marketplace.json", openaiMarket],
+  [".github/plugin/marketplace.json", copilotMarket],
 ]) {
   if (!market) continue;
   const entry = market.plugins?.find((p) => p.name === name);
