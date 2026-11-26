@@ -13,9 +13,8 @@ The workbench skills help a user run a technology project successfully, with eac
 | 1 | `discovery-defining-success` | The outcome we're aiming for | `headline.html` |
 | 2 | `discovery-research` | Users, interest holders, current technology, the challenge statement | `research-plan.html`, `environmental-scan.html` |
 | 3 | `discovery-brainstorming` | Genuinely different concepts, narrowed to a short list | `brainstorm.html` |
-| 4 | `discovery-proof-of-concept` | Which direction to take into Alpha, tested with real people | `concepts.html`, a concept testing activity in `research-plan.html` |
 
-Discovery isn't linear, something new is often learned in each activity and that information has to cascade back from the beginning (are we still aiming for the same outcome) through research and development (do our assumptions still hold). Dont hesitate to recommend refinement.
+Discovery isn't linear, something new is often learned in each activity and that information has to cascade back from the beginning (are we still aiming for the same outcome) through research and development (do our assumptions still hold). Dont hesitate to recommend refinement or or deletion of less relevant assumptions.
 
 ## Orienting and moving on
 
@@ -32,10 +31,12 @@ When the user seems unsure about their progress or results, or before moving pas
 
 ## The discovery report
 
-`discovery-report.html` is the single readable summary of discovery. All HTML should be elegant, with no decorative elements, brief concise text, and strong typography hierarchy. Every activity keeps its own outputs and also updates the report:
+`discovery-report.html` is the single readable summary of discovery that summarizes the work as it develops, and ends up as a comprehensive, readable report by the time options analysis wraps up. All HTML should be elegant, with no decorative elements, concise text, constrained/simple use of color, and strong typography hierarchy. 
+
+Every activity keeps its own outputs and also updates the report:
 
 - Create it if it doesn't exist.
-- Update the sections the activity informs, in this order: outcome and success measures; challenge statement and scope; people; how things work today and the technology involved; constraints and key takeaways from the environmental scan; current assumptions; the concept short list; the chosen direction, its evidence, and the assumptions Alpha should test first.
+- Update the sections the activity informs: challenge statement, what success looks like, and scope; user research; technology scan; organizational constraints; the concept short list; current assumptions/open questions.
 - Link to activity outputs and sources rather than repeating them.
 - Rewrite any earlier section that new evidence changes. The outcome and challenge statement often sharpen as we learn.
-- End with a changelog: one dated line per meaningful change, saying what changed and why. If appropriate, create a PR.
+- End with a changelog: one dated line per meaningful change, saying what changed and why. If appropriate to your environment, create a PR with the changes between each activity.
